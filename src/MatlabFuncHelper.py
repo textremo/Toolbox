@@ -1,24 +1,47 @@
-import numpy as np
-import torch as pt
-import tensorflow as tf
+# supported data types
+DT_NP = 1;
+DT_PT = 2;
+DT_TF = 3;
+DTS = [];
+DT_NP_SUP = True
+DT_PT_SUP = True
+DT_TF_SUP = True
+# load dependencies
+try:
+    import numpy as np
+    DTS.append(DT_NP)
+except ImportError:
+    DT_NP_SUP = False
+try:
+    import torch as pt
+    DTS.append(DT_PT)
+except ImportError:
+    DT_PT_SUP = False
+try:
+    import tensorflow as tf
+    DTS.append(DT_TF)
+except ImportError:
+    DT_TF_SUP = False
+if not DTS:
+    raise Exception("You have to support at least one of Numpy, Pytorch and Tensforflow!!!")
+
+
 class MatlabFuncHelper(object):
     # configurations
     BATCH_SIZE_NO = None;
-    DATA_TYPE_NP = 1;
-    DATA_TYPE_PT = 2;
-    DATA_TYPE_TF = 3;
-    # settings
-    batch_size = BATCH_SIZE_NO;
-    data_type = DATA_TYPE_NP;
+    
+    # settings    
+    batch_size = BATCH_SIZE_NO
+    data_type = DT_NP
     
     ###########################################################################
     # Data type
     def toNP(self):
-        self.data_type = self.DATA_TYPE_NP;
+        self.data_type = DT_NP;
     def toPT(self):
-        self.data_type = self.DATA_TYPE_PT;
+        self.data_type = DT_PT;
     def toTF(self):
-        self.data_type = self.DATA_TYPE_TF;
+        self.data_type = DT_TF;
     
     ###########################################################################
     # Batch
@@ -38,10 +61,10 @@ class MatlabFuncHelper(object):
     '''
     def isvector(self, mat):
         is_vector = False;
-        if not isinstance(mat, np.ndarray) and not isinstance(mat, pt.Tensor) and not tf.is_tensor(mat):
+        if not isDtNp(mat) and not isDtPt(mat) and not isDtTf(mat):
             mat = np.asarray(mat);
         if self.batch_size == self.BATCH_SIZE_NO:
-            if tf.is_tensor(mat):
+            if isDtTf(mat):
                 is_vector = mat.shape.ndims == 1 or mat.shape.ndims >= 2 and (mat.shape[-2] == 1 or mat.shape[-1] == 1);
             else:
                 is_vector = mat.ndim == 1 or mat.ndim >= 2 and (mat.shape[-2] == 1 or mat.shape[-1] == 1);
@@ -49,7 +72,7 @@ class MatlabFuncHelper(object):
             if mat.shape[0] != self.batch_size:
                 raise Exception("The input does not has the required batch size.");
             else:
-                if tf.is_tensor(mat):
+                if isDtTf(mat):
                     is_vector = mat.shape.ndims == 2 or mat.shape.ndims >= 3 and (mat.shape[-2] == 1 or mat.shape[-1] == 1);
                 else:
                     is_vector =  mat.ndim == 2 or mat.ndim >= 3 and (mat.shape[-2] == 1 or mat.shape[-1] == 1);
@@ -60,10 +83,10 @@ class MatlabFuncHelper(object):
     '''
     def ismatrix(self, mat):
         is_matrix = False;
-        if not isinstance(mat, np.ndarray) and not isinstance(mat, pt.Tensor) and not tf.is_tensor(mat):
+        if not isDtNp(mat) and not isDtPt(mat) and not isDtTf(mat):
             mat = np.asarray(mat);
         if self.batch_size == self.BATCH_SIZE_NO:
-            if tf.is_tensor(mat):
+            if isDtTf(mat):
                 is_matrix =  mat.shape.ndims == 2 and mat.shape[-2] > 1 and mat.shape[-1] > 1;
             else:
                 is_matrix = mat.ndim == 2 and mat.shape[-2] > 1 and mat.shape[-1] > 1;
@@ -71,7 +94,7 @@ class MatlabFuncHelper(object):
             if mat.shape[0] != self.batch_size:
                 raise Exception("The input does not has the required batch size.");
             else:
-                if tf.is_tensor(mat):
+                if isDtTf(mat):
                     is_matrix = mat.shape.ndims >= 3 and mat.shape[-2] > 1 and mat.shape[-1] > 1;
                 else:    
                     is_matrix = mat.ndim >= 3 and mat.shape[-2] > 1 and mat.shape[-1] > 1;
@@ -83,7 +106,7 @@ class MatlabFuncHelper(object):
     def isnan(self, mat):
         if isinstance(mat, pt.Tensor):
             return pt.isnan(mat);
-        elif tf.is_tensor(mat):
+        elif isDtTf(mat):
             return tf.math.is_nan(mat);
         else:
             return np.isnan(mat);
@@ -409,4 +432,28 @@ class MatlabFuncHelper(object):
             if len(args) == 0:
                 shape.insert(0, in1); # row repeat
         return shape;
-            
+    
+#------------------------------------------------------------------------------
+# local functions
+#------------------------------------------------------------------------------
+'''
+check whether input is numpy, pytorch or tensorflow
+'''
+def isDtNp(in0):
+    res = False
+    if DT_NP_SUP :
+        if isinstance(in0, np.ndarray):
+            res = True
+    return res
+def isDtPt(in0):
+    res = False 
+    if DT_PT_SUP:
+        if isinstance(in0, pt.Tensor):
+            res = True
+    return res
+def isDtTf(in0):
+    res = False 
+    if DT_TF_SUP:
+        if tf.is_tensor(in0):
+            res = True
+    return res

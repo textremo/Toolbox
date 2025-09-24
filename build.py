@@ -2,13 +2,13 @@ import os
 import shutil
 
 # version control
-version = "1.0.10";
+version = "1.0.11";
 install_requires = ['numpy>=1.20.1'];
 
 # path
 path_cur = os.getcwd();
 path_dist = "_dist/";
-path_dist_pkg = path_dist + "whatshow_toolbox/";
+path_dist_pkg = path_dist + "textremo_toolbox/";
 # file
 files = ["MatlabFuncHelper.py"];
 file_init = "__init__.py";
@@ -23,7 +23,7 @@ description = "";\n\
 with open("README.md", "r") as readme:\n\
     description = readme.read();\n\
 setup(\n\
-      name="whatshow_toolbox",\n\
+      name="textremo_toolbox",\n\
       version="{version}",\n\
       packages=find_packages(),\n\
       install_requires={install_requires},\n\
@@ -41,8 +41,8 @@ os.makedirs(path_dist_pkg);
 
 # copy files to the distribution
 for file in files:
-    if os.path.exists(file):
-        shutil.copyfile(file, path_dist_pkg + file);
+    if os.path.exists("./src/" + file):
+        shutil.copyfile("./src/" + file, path_dist_pkg + file);
 
 # add config files
 # __init__.py

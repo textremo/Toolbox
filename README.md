@@ -1,18 +1,16 @@
 # Toolbox
-[![PyPi](https://img.shields.io/badge/PyPi-1.0.10-blue)](https://pypi.org/project/whatshow-toolbox/)
+[![PyPi](https://img.shields.io/badge/PyPi-1.0.10-blue)](https://pypi.org/project/textremo-toolbox/)
 
 
 This repositories offers a toolbox across platforms.
 ## How to install
-* Install through `Matlab Add-Ons`
-    * Install through Matlab `Get Add-Ons`: search `whatshow_toolbox` and install it.
 * Install through `pip`
     ```sh
-    pip install whatshow-toolbox
+    pip install textremo-toolbox
     ```
     * **import this module**
         ```
-        from whatshow_toolbox import *
+        from textremo_toolbox import *
         ```
         
 ## How to use
