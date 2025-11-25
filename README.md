@@ -1,5 +1,5 @@
 # Toolbox
-[![PyPi](https://img.shields.io/badge/PyPi-1.0.14-blue)](https://pypi.org/project/textremo-toolbox/)
+[![PyPi](https://img.shields.io/badge/PyPi-1.0.15-blue)](https://pypi.org/project/textremo-toolbox/)
 
 
 This repositories offers a toolbox across platforms.

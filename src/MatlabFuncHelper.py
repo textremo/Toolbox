@@ -3,26 +3,29 @@ DT_NP = 1;
 DT_PT = 2;
 DT_TF = 3;
 DTS = [];
-DT_NP_SUP = True
-DT_PT_SUP = True
-DT_TF_SUP = True
+DT_NP_SUP = False
+DT_PT_SUP = False
+DT_TF_SUP = False
 # load dependencies
 try:
     import numpy as np
     DTS.append(DT_NP)
+    DT_NP_SUP = True
 except ImportError:
-    DT_NP_SUP = False
+    pass
 try:
     import torch as pt
     DTS.append(DT_PT)
+    DT_PT_SUP = True
 except ImportError:
-    DT_PT_SUP = False
+    pass    
 try:
     import tensorflow as tf
     if tf.__file__:
         DTS.append(DT_TF)
+        DT_TF_SUP = True
 except ImportError:
-    DT_TF_SUP = False
+    pass
 if not DTS:
     raise Exception("You have to support at least one of Numpy, Pytorch and Tensforflow!!!")
 
