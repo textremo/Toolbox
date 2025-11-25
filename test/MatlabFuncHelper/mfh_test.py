@@ -1,7 +1,13 @@
+import sys
+import os
 import numpy as np
 import torch as pt
-import tensorflow as tf
-from MatlabFuncHelper import MatlabFuncHelper
+try:
+    import tensorflow as tf
+except:
+        pass
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from src.MatlabFuncHelper import MatlabFuncHelper
 
 mfh = MatlabFuncHelper();
 '''
@@ -11,8 +17,10 @@ checkers
 vec_py = [1];
 vec_np = np.array([1]);
 vec_pt = pt.tensor([1]);
-vec_tf = tf.Tensor([1]);
-
+try:
+    vec_tf = tf.Tensor([1]);
+except:
+    pass
 
 # seq
 rtn_seq = mfh.seq(3,4);
@@ -45,16 +53,16 @@ rtn_repmat = mfh.repmatN([[1, 2]], 2, order="C");
 assert(np.sum(rtn_repmat - np.tile([1, 2], (1,2)), axis=None) == 0);
 assert(rtn_repmat.ndim == 2);
 mfh.batch_size = 20;
-rtn_repmat = mfh.repmat1([[1, 2]], 2, order="F");
+rtn_repmat = mfh.repmat1([[[1, 2]]], 2, order="F");
 assert(np.sum(rtn_repmat - np.tile([1, 2], (1,2,2)), axis=None) == 0);
 assert(rtn_repmat.ndim == 3);
-rtn_repmat = mfh.repmat1([[1, 2]], 2, order="C");
+rtn_repmat = mfh.repmat1([[[1, 2]]], 2, order="C");
 assert(np.sum(rtn_repmat - np.tile([1, 2], (1,1,2)), axis=None) == 0);
 assert(rtn_repmat.ndim == 3);
-rtn_repmat = mfh.repmatN([[1, 2]], 2, order="F");
+rtn_repmat = mfh.repmatN([[[1, 2]]], 2, order="F");
 assert(np.sum(rtn_repmat - np.tile([1, 2], (20,2,2)), axis=None) == 0);
 assert(rtn_repmat.ndim == 3);
-rtn_repmat = mfh.repmatN([[1, 2]], 2, order="C");
+rtn_repmat = mfh.repmatN([[[1, 2]]], 2, order="C");
 assert(np.sum(rtn_repmat - np.tile([1, 2], (20,1,2)), axis=None) == 0);
 assert(rtn_repmat.ndim == 3);
 # repmat - rns is longer than input matrix (if use batch size, the actual batch_size is ignored)

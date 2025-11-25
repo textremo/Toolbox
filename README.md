@@ -1,5 +1,5 @@
 # Toolbox
-[![PyPi](https://img.shields.io/badge/PyPi-1.0.10-blue)](https://pypi.org/project/textremo-toolbox/)
+[![PyPi](https://img.shields.io/badge/PyPi-1.0.12-blue)](https://pypi.org/project/textremo-toolbox/)
 
 
 This repositories offers a toolbox across platforms.
@@ -12,6 +12,10 @@ This repositories offers a toolbox across platforms.
         ```
         from textremo_toolbox import *
         ```
+* `Develop`
+    ```sh
+    pip install setuptools wheel twine
+    ```
         
 ## How to use
 * MatlabFuncHelper: this class simulate all Matlab functions in python (batch is supported).
