@@ -19,7 +19,8 @@ except ImportError:
     DT_PT_SUP = False
 try:
     import tensorflow as tf
-    DTS.append(DT_TF)
+    if tf.__file__:
+        DTS.append(DT_TF)
 except ImportError:
     DT_TF_SUP = False
 if not DTS:
