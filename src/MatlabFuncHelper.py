@@ -124,9 +124,9 @@ class MatlabFuncHelper(object):
         if self.batch_size != self.BATCH_SIZE_NO:
             shape.insert(0, self.batch_size);
         # return
-        if self.data_type == self.DT_PT:
+        if self.data_type == DT_PT:
             return pt.zeros(shape);
-        elif self.data_type == self.DT_TF:
+        elif self.data_type == DT_TF:
             return tf.zeros(shape);
         else:
             return np.zeros(shape);    
@@ -142,9 +142,9 @@ class MatlabFuncHelper(object):
         if self.batch_size != self.BATCH_SIZE_NO:
             shape.insert(0, self.batch_size);
         # return
-        if self.data_type == self.DT_PT:
+        if self.data_type == DT_PT:
             return pt.ones(shape);
-        elif self.data_type == self.DT_TF:
+        elif self.data_type == DT_TF:
             return tf.ones(shape);
         else:
             return np.ones(shape);    
