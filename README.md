@@ -1,5 +1,5 @@
 # Toolbox
-[![PyPi](https://img.shields.io/badge/PyPi-1.0.15-blue)](https://pypi.org/project/textremo-toolbox/)
+[![PyPi](https://img.shields.io/badge/PyPi-1.0.17-blue)](https://pypi.org/project/textremo-toolbox/)
 
 
 This repositories offers a toolbox across platforms.
@@ -18,6 +18,7 @@ This repositories offers a toolbox across platforms.
     ```
         
 ## How to use
+* MatlabFuncs: this class simulate all Matlab functions for `numpy`, `pytorch`, `tensorflow`. Please note that ***data must be batched*** (at least `batch_size=1`).
 * MatlabFuncHelper: this class simulate all Matlab functions in python (batch is supported).
     * batch
         * `setBatchSize(batch_size)` or `setBS(batch_size)`

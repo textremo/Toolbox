@@ -2,7 +2,7 @@ import os
 import shutil
 
 # version control
-version = "1.0.15";
+version = "1.0.17";
 install_requires = ['numpy>=1.20.1'];
 
 # path
@@ -10,12 +10,14 @@ path_cur = os.getcwd();
 path_dist = "_dist/";
 path_dist_pkg = path_dist + "textremo_toolbox/";
 # file
-files = ["MatlabFuncHelper.py"];
+files = ["MatlabFuncHelper.py", "MatlabFuncs.py"];
 file_init = "__init__.py";
 file_setup = "setup.py";
 file_readme = "README.md";
 # file content
-file_init_content = "from .MatlabFuncHelper import MatlabFuncHelper";
+file_init_content = "from .MatlabFuncHelper import MatlabFuncHelper\n\
+from .MatlabFuncs import DiagExt, DiagGen\
+";
 file_setup_content = f'from setuptools import setup, find_packages\n\
 \n\
 # prepare the instruction\n\
